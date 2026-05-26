@@ -1,0 +1,81 @@
+<div class="bg-white max-w-7xl justify-center">
+  <h1 *ngIf="kerdes" class="text-4xl p-5 m-5">{{ kerdes }}</h1>
+  <button
+    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-12 my-2"
+    (click)="eredmenyekMegtekintese()"
+  >
+    Eredmények
+  </button>
+
+  <div
+    class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
+  >
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead
+        class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">OPCIÓ</th>
+          <th scope="col" class="px-6 py-3 font-medium">Müveletek</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of pollOpciok"
+          class="bg-neutral-primary border-b border-default"
+        >
+          <td class="px-6 py-4">
+            {{ item.name }}
+          </td>
+          <td class="px-6 py-4">
+            <button
+              (click)="opcioVote(item.id)"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              SZAVAZOK
+            </button>
+            <button
+              (click)="opcioTorles(item.id)"
+              class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            >
+              TÖRLÉS
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h1 class="p-5 text-2xl">ÚJ OPCIÓ</h1>
+  <div class="p-5">
+    <div class="w-full max-w-xs">
+      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="username"
+          >
+            ÚJ OPCIÓ NEVE
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="newOptionName"
+            name="newOptionName"
+            [(ngModel)]="newOptionName"
+            type="text"
+            placeholder="Pl.: Igen"
+          />
+        </div>
+        <div class="flex items-center justify-between">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            (click)="ujOpcio()"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

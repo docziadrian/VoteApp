@@ -1,0 +1,46 @@
+<div class="bg-white max-w-7xl justify-center flex flex-col">
+  <h1 class="p-2 text-2xl">Szavazás eredményei</h1>
+  <div
+    class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
+  >
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead
+        class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">OPCIÓ</th>
+          <th scope="col" class="px-6 py-3 font-medium">Szavazatok</th>
+          <th scope="col" class="px-6 py-3 font-medium">Arány</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of szavazasEredmenyei"
+          class="bg-neutral-primary border-b border-default"
+        >
+          <td class="px-6 py-4">
+            {{ item.name }}
+          </td>
+          <td class="px-6 py-4">
+            {{ item.vote_count }}
+          </td>
+          <td class="px-6 py-4">
+            <h1>
+              Arány:
+              {{ (item.vote_count / szavazasEredmenyei.length) * 100 }}
+            </h1>
+            <div class="w-full bg-white rounded-full h-2">
+              <div
+                class="bg-green-400 h-2 rounded-full"
+                style="width: 45%"
+                [style]="{
+                  width: (item.vote_count / szavazasEredmenyei.length) * 100,
+                }"
+              ></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

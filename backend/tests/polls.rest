@@ -1,0 +1,21 @@
+### GET ALL POLLS
+GET http://localhost:3000/polls/
+
+### GET 1 POLL
+GET http://localhost:3000/polls/3
+
+### POST A POLL
+POST http://localhost:3000/polls/
+Content-Type: application/json
+
+{
+    "title": "Vége lesz valaha?"
+}
+
+### DELETE A POLL
+DELETE http://localhost:3000/polls/1
+
+
+
+### GET /POLLS/:ID/STATS
+GET http://localhost:3000/polls/2/stats

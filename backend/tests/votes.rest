@@ -1,0 +1,8 @@
+### VOTES ---------
+### POST A VOTE
+POST http://localhost:3000/votes/
+Content-Type: application/json
+
+{
+    "option_id": 3
+} 

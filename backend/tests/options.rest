@@ -1,0 +1,18 @@
+### OPTIONS ---------
+
+### GET /polls/:id/options
+GET http://localhost:3000/polls/3/options
+
+
+### POST AN OPTION
+POST http://localhost:3000/options/
+Content-Type: application/json
+
+{
+    "poll_id": 3,
+    "name": "Igen :)"
+} 
+
+### DELETE AN OPTION
+DELETE http://localhost:3000/options/2
+
