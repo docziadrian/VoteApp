@@ -43,6 +43,9 @@ export class ViewSzavazasComponent implements OnInit {
       };
       this.apiService.createOption(data).subscribe({
         next: (data: any) => {
+          setTimeout(() => {
+            this.alertService.setAlert('Sikeresen létrehoztad!', 'success');
+          }, 2000);
           window.location.reload();
         },
         error: (error) => {
@@ -59,6 +62,9 @@ export class ViewSzavazasComponent implements OnInit {
     // Kitörönyöljük az adatot
     this.apiService.deleteOption(id).subscribe({
       next: (data: any) => {
+        setTimeout(() => {
+          this.alertService.setAlert('Sikeresen törölted!', 'success');
+        }, 2000);
         window.location.reload();
       },
       error: (error) => {
@@ -77,6 +83,7 @@ export class ViewSzavazasComponent implements OnInit {
     };
     this.apiService.createVote(data).subscribe({
       next: (data: any) => {
+        this.alertService.setAlert('Sikeresen szavaztál!', 'success');
         alert('Sikeresen szavaztáll.');
       },
       error: (error) => {
