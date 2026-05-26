@@ -36,6 +36,8 @@ export class SzavazasEredmenyeiComponent implements OnInit {
     this.apiService.getPollStats(this.id!).subscribe({
       next: (data: any) => {
         this.szavazasEredmenyei = data;
+        console.log(data);
+        let data_length = data.length;
       },
       error: (error) => console.log(error), //TODO: ALERT!
     });
