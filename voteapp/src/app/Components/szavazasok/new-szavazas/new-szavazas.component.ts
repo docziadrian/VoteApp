@@ -29,8 +29,18 @@ export class NewSzavazasComponent {
             this.router.navigate(['/']);
           }, 1000);
         },
-        error: (error) => console.log(error), //TODO: ALERT!
+        error: (error) => {
+          this.alertService.setAlert(
+            'Hiba lépett fel a szavazás létrehozása közben!',
+            'error',
+          );
+        },
       });
+    } else {
+      this.alertService.setAlert(
+        'Hiba lépett fel a szavazás létrehozása közben! Nem elég hosszú a név!',
+        'error',
+      );
     }
   }
 

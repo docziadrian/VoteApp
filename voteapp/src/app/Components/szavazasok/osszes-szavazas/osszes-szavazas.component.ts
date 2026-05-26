@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../Services/api.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AlertService } from '../../../Services/alert.service';
 
 @Component({
   selector: 'app-osszes-szavazas',
@@ -14,6 +15,7 @@ export class OsszesSzavazasComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private router: Router,
+    private alertService: AlertService,
   ) {}
 
   allSzavazasok: any = [];
@@ -24,7 +26,12 @@ export class OsszesSzavazasComponent implements OnInit {
         this.allSzavazasok = data;
         console.log(data);
       },
-      error: (error) => console.log(error), //TODO: ALERT!
+      error: (error) => {
+        this.alertService.setAlert(
+          'Hiba lépett fel a szavazás létrehozása közben!',
+          'error',
+        );
+      },
     });
   }
 
@@ -43,7 +50,12 @@ export class OsszesSzavazasComponent implements OnInit {
       next: (data: any) => {
         window.location.reload(); // a router atnavigalasa nem segit
       },
-      error: (error) => console.log(error), //TODO: ALERT!
+      error: (error) => {
+        this.alertService.setAlert(
+          'Hiba lépett fel a szavazás létrehozása közben!',
+          'error',
+        );
+      },
     });
   }
 }

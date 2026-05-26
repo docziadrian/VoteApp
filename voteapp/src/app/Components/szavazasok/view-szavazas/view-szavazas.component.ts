@@ -3,6 +3,7 @@ import { ApiService } from '../../../Services/api.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from '../../../Services/alert.service';
 
 @Component({
   selector: 'app-view-szavazas',
@@ -17,12 +18,16 @@ export class ViewSzavazasComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private router: Router,
+    private alertService: AlertService,
   ) {}
 
   pollOpciok: any = [];
   kerdes: any = null;
 
   newOptionName: string = '';
+
+  // SLIDERHEZ
+  adatokSzama = 0;
 
   ujOpcio() {
     // VALIDÁCIÓ
@@ -40,7 +45,12 @@ export class ViewSzavazasComponent implements OnInit {
         next: (data: any) => {
           window.location.reload();
         },
-        error: (error) => console.log(error), //TODO: ALERT!
+        error: (error) => {
+          this.alertService.setAlert(
+            'Hiba lépett fel a szavazás közben!',
+            'error',
+          );
+        },
       });
     }
   }
@@ -51,7 +61,12 @@ export class ViewSzavazasComponent implements OnInit {
       next: (data: any) => {
         window.location.reload();
       },
-      error: (error) => console.log(error), //TODO: ALERT!
+      error: (error) => {
+        this.alertService.setAlert(
+          'Hiba lépett fel a szavazás közben!',
+          'error',
+        );
+      },
     });
   }
 
@@ -62,14 +77,30 @@ export class ViewSzavazasComponent implements OnInit {
     };
     this.apiService.createVote(data).subscribe({
       next: (data: any) => {
-        alert('Kösz.');
+        alert('Sikeresen szavaztáll.');
       },
-      error: (error) => console.log(error), //TODO: ALERT!
+      error: (error) => {
+        this.alertService.setAlert(
+          'Hiba lépett fel a szavazás közben!',
+          'error',
+        );
+      },
     });
   }
 
   eredmenyekMegtekintese() {
     this.router.navigate([`/szavazas/eredmenyek/${this.id}`]);
+  }
+
+  sliderLekerdezes() {
+    // Kérjük le, hogy ehhez az ID -hoz tartozva mennyi options van!
+    this.apiService.getPollOptions(this.id!).subscribe({
+      next: (data: any) => {
+        this.adatokSzama = data.length;
+        console.log('?');
+        console.log(this.adatokSzama);
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -86,15 +117,26 @@ export class ViewSzavazasComponent implements OnInit {
       next: (data: any) => {
         this.kerdes = data[0].title;
       },
-      error: (error) => console.log(error), //TODO: ALERT!
+      error: (error) => {
+        this.alertService.setAlert(
+          'Hiba lépett fel a szavazás közben!',
+          'error',
+        );
+      },
     });
 
     this.apiService.getPollOptions(this.id!).subscribe({
       next: (data: any) => {
         this.pollOpciok = data;
+        this.adatokSzama = data.length;
         console.log(data.name);
       },
-      error: (error) => console.log(error), //TODO: ALERT!
+      error: (error) => {
+        this.alertService.setAlert(
+          'Hiba lépett fel a szavazás közben!',
+          'error',
+        );
+      },
     });
   }
 }
